@@ -1,15 +1,18 @@
 const express = require('express')
 const {setupLogging} = require("./src/middleware/logging");
-
+const {setupProxies} = require("./src/middleware/proxy");
+const {ROUTES} = require("./src/routes/routes");
+const {setupRateLimit} = require("./src/middleware/ratelimit");
 
 const app = express()
 const port = 3000;
 
-
+app.use(require('express-status-monitor')());
 setupLogging(app);
-app.get('/hello', (req, resp) => {
-    return resp.send('HELLO WORLD!');
-})
+setupRateLimit(app, ROUTES);
+setupProxies(app, ROUTES);
+
+
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 })
