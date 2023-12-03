@@ -1,3 +1,4 @@
+// For More Information: https://www.npmjs.com/package/http-proxy-middleware
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const setupProxies = (app, routes) => {
